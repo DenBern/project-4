@@ -113,7 +113,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   btns.forEach(btn => {
-    btn.addEventListener('click', openModal)
+    btn.addEventListener('click', openModal);
   });
 
   function closeModal() {
@@ -205,27 +205,34 @@ window.addEventListener('DOMContentLoaded', () => {
   //     })
   //   })
 
-  getResource('http://localhost:3000/menu')
-    .then(data => createCard(data));
+  // getResource('http://localhost:3000/menu')
+  //   .then(data => createCard(data));
 
-    function createCard (data) {
-      data.forEach(({img, altimg, title, description, price}) => {
-        const element = document.createElement('div');
-        element.classList.add('menu__item');
-        element.innerHTML = `
-        <img src=${img} alt=${altimg}>
-        <h3 class="menu__item-subtitle">${title}</h3>
-        <div class="menu__item-descr">${description}</div>
-        <div class="menu__item-divider"></div>
-        <div class="menu__item-price">
-            <div class="menu__item-cost">Цена:</div>
-            <div class="menu__item-total"><span>${price}</span> грн/день</div>
-        </div>
-        `;
+  //   function createCard (data) {
+  //     data.forEach(({img, altimg, title, description, price}) => {
+  //       const element = document.createElement('div');
+  //       element.classList.add('menu__item');
+  //       element.innerHTML = `
+  //       <img src=${img} alt=${altimg}>
+  //       <h3 class="menu__item-subtitle">${title}</h3>
+  //       <div class="menu__item-descr">${description}</div>
+  //       <div class="menu__item-divider"></div>
+  //       <div class="menu__item-price">
+  //           <div class="menu__item-cost">Цена:</div>
+  //           <div class="menu__item-total"><span>${price}</span> грн/день</div>
+  //       </div>
+  //       `;
 
-        document.querySelector('.menu .container').append(element);
+  //       document.querySelector('.menu .container').append(element);
+  //     });
+  //   }
+
+  axios.get('http://localhost:3000/menu')
+    .then(data => {
+      data.data.forEach(({img, altimg, title, description, price}) => {
+        new MenuCard(img, altimg, title, description, price, '.menu .container').render();
       });
-    };
+    });
 
   // Forms
 
@@ -235,7 +242,7 @@ window.addEventListener('DOMContentLoaded', () => {
     loading: 'img/form/spinner.svg',
     success: 'Спасибо! Скоро мы с Вами свяжемся',
     failure: 'Что-то пошло не так...'
-  }
+  };
 
   forms.forEach(item => {
     bindPostDate(item);
@@ -272,7 +279,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         postDate('http://localhost:3000/requests', json)
         .then(data => {
-          console.log(data)
+          console.log(data);
           showThanksModal(message.success);
           form.reset();
           statusMessage.remove();
@@ -311,6 +318,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   fetch('http://localhost:3000/menu')
     .then(data => data.json())
-    .then(res => console.log(res))
+    .then(res => console.log(res));
 
 });
