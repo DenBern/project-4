@@ -103,7 +103,7 @@ window.addEventListener('DOMContentLoaded', () => {
   //Modal
 
   const btns = document.querySelectorAll('[data-modal]');
-  const  modal = document.querySelector('.modal');
+  const modal = document.querySelector('.modal');
 
   function openModal() {
     modal.classList.add('show');
@@ -215,7 +215,7 @@ window.addEventListener('DOMContentLoaded', () => {
     'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
     8.5,
     '.menu .container',
-    'menu__item',  
+    'menu__item',
   ).render();
 
   // Forms
@@ -232,7 +232,7 @@ window.addEventListener('DOMContentLoaded', () => {
     postDate(item);
   })
 
-  function postDate (form) {
+  function postDate(form) {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
 
@@ -244,59 +244,59 @@ window.addEventListener('DOMContentLoaded', () => {
       `;
       form.insertAdjacentElement('afterend', statusMessage);
 
-
-      const request = new XMLHttpRequest();
-      request.open('POST','server.php');
-
-      request.setRequestHeader('Content-type', 'application/json')
+      //request.setRequestHeader('Content-type', 'application/json')
       const formData = new FormData(form);
 
       const object = {};
-      formData.forEach(function(value, key) {
+      formData.forEach(function (value, key) {
         object[key] = value;
       });
 
-      const json = JSON.stringify(object);
-
-      request.send(json);
-
-      request.addEventListener('load', () => {
-        if (request.status === 200) {
-          console.log(request.response)
+      fetch('server.php', {
+          method: 'POST',
+          body: JSON.stringify(object),
+          headers: {
+            'Content-type': 'application/json'
+          }
+        })
+        .then(data => data.text())
+        .then(data => {
+          console.log(data)
           showThanksModal(message.success);
           form.reset();
           statusMessage.remove();
-        } else {
+        }).catch(() => {
           showThanksModal(message.failure);
-        }
-      })
+        }).finally(() => {
+          form.reset();
+        });
     });
   }
 
-function showThanksModal(message) {
-  
-  const prevModalDialog = document.querySelector('.modal__dialog');
+  function showThanksModal(message) {
 
-  prevModalDialog.classList.add('hide');
-  openModal();
+    const prevModalDialog = document.querySelector('.modal__dialog');
 
-  const thanksModal = document.createElement('div');
-  thanksModal.classList.add('modal__dialog');
-  thanksModal.innerHTML = `
+    prevModalDialog.classList.add('hide');
+    openModal();
+
+    const thanksModal = document.createElement('div');
+    thanksModal.classList.add('modal__dialog');
+    thanksModal.innerHTML = `
     <div class='modal__content'>
       <div class='modal__close' data-close>&times;</div>
       <div class='modal__title'>${message}</div>
     </div>
   `;
 
-  document.querySelector('.modal').append(thanksModal);
-  setTimeout(() => {
-    thanksModal.remove();
-    prevModalDialog.classList.add('show');
-    prevModalDialog.classList.remove('hide');
-    closeModal();
-  }, 4000);
+    document.querySelector('.modal').append(thanksModal);
+    setTimeout(() => {
+      thanksModal.remove();
+      prevModalDialog.classList.add('show');
+      prevModalDialog.classList.remove('hide');
+      closeModal();
+    }, 4000);
 
-}
+  }
 
 });
