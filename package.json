@@ -1,0 +1,22 @@
+{
+  "name": "project-4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DenBern/project-4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DenBern/project-4/issues"
+  },
+  "homepage": "https://github.com/DenBern/project-4#readme",
+  "devDependencies": {
+    "json-server": "^0.17.1"
+  }
+}
