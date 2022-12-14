@@ -335,7 +335,6 @@ window.addEventListener('DOMContentLoaded', () => {
   const width = window.getComputedStyle(slidesWrapper).width;
   let slideIndex = 1;
   let offset = 0;
-  console.log(width);
 
   function showSlideNum() {
     if (slides.length < 10) {
@@ -346,6 +345,8 @@ window.addEventListener('DOMContentLoaded', () => {
       current.textContent = slideIndex;
     }
   }
+  showSlideNum();
+  console.log(slideIndex);
 
   slidesField.style.width = 100 * slides.length + '%';
   slidesField.style.display = 'flex';
@@ -403,6 +404,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const dotsOpacity = () => {
     dotsArr.forEach(dot => dot.style.opacity = '.5');
     dotsArr[slideIndex - 1].style.opacity = 1;
+    console.log(slideIndex - 1 )
   }
 
   const currentSliderNum = () => {
@@ -428,14 +430,9 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
       slideIndex++;
     }
-
-    if (slides.length < 10) {
-      current.textContent = `0${slideIndex}`
-    } else {
-      current.textContent = slideIndex;
-    }
-
+    currentSliderNum();
     dotsOpacity();
+  console.log(slideIndex);
   });
 
   prevSlide.addEventListener('click', () => {
@@ -452,7 +449,6 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
       slideIndex--;
     }
-
     currentSliderNum()
     dotsOpacity();
   });
@@ -460,6 +456,7 @@ window.addEventListener('DOMContentLoaded', () => {
   dotsArr.forEach(dot => {
     dot.addEventListener('click', (e) => {
       const slideTo = e.target.getAttribute('data-slide-to');
+      console.log(slideTo)
 
       slideIndex = slideTo;
       offset = +width.slice(0, width.length - 2) * (slideTo - 1);
@@ -470,13 +467,14 @@ window.addEventListener('DOMContentLoaded', () => {
       } else {
         current.textContent = slideIndex;
       }
-
       currentSliderNum();
       dotsOpacity();
+      showSlideNum();
+      console.log(slideIndex);
     })
   });
 
-  // showSlides(slideIndex);
+  // showSlideNum(slideIndex);
 
   // if (slides.length < 10) {
   //   total.textContent = `0${slides.length}`
@@ -519,8 +517,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-  fetch('http://localhost:3000/menu')
-    .then(data => data.json())
-    .then(res => console.log(res));
+  // fetch('http://localhost:3000/menu')
+  //   .then(data => data.json())
+  //   .then(res => console.log(res));
 
 });
