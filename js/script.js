@@ -510,12 +510,17 @@ window.addEventListener('DOMContentLoaded', () => {
   //   plusSlides(1);
   // })
 
-
-
-
-
   // fetch('http://localhost:3000/menu')
   //   .then(data => data.json())
   //   .then(res => console.log(res));
+
+  // Calculator
+
+  const result = document.querySelector('.calculating__result span');
+  let sex;
+  let height;
+  let weight;
+  let age;
+  let ratio;
 
 });
