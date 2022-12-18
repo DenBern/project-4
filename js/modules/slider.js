@@ -190,4 +190,4 @@ function slider() {
     //   .then(res => console.log(res));
 }
 
-module.exports = slider;
+export default slider;
