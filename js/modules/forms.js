@@ -30,7 +30,7 @@ function forms(formsSelector, modalTimer) {
 
             const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-            postDate('http://localhost:3000/requests', json)
+            postData('http://localhost:3000/requests', json)
                 .then(data => {
                     console.log(data);
                     showThanksModal(message.success);
@@ -49,7 +49,7 @@ function forms(formsSelector, modalTimer) {
         const prevModalDialog = document.querySelector('.modal__dialog');
 
         prevModalDialog.classList.add('hide');
-        openModal('.modal', modalTimer);
+        openModal('.modal');
 
         const thanksModal = document.createElement('div');
         thanksModal.classList.add('modal__dialog');
